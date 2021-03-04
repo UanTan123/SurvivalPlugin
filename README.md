@@ -13,3 +13,10 @@ Minecraft SurvialPlugin
 - I will use it on my server later.
 - 나머지 번역 필요.
 - 나머지 번역 필요.
+
+# 문의 방법
+- Discord : [디스코드](https://discord.com/users/445529063528857611)
+- Gmail : [이메일](kddxx6123@gamil.com)
+
+# 신고 관련.
+- 해당 플러그인의 코드와 같은 코드를 사용하지만, 소스코드를 공개하지 않거나, 라이센스를 정확히 걸지 않은경우 [디스코드](https://discord.com/users/445529063528857611) 으로 연락바랍니다.
