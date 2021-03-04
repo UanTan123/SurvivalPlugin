@@ -1,0 +1,20 @@
+main: un10.un10.Main
+name: Synthesis
+version: 1.0v
+api-version: 1.16
+permissions:
+  sp.*:
+    description: sp plugin all permission.
+    default: op
+  sp.broadcast:
+    description: broadcast permission
+    default: op
+  sp.teleport:
+    description: teleport world permission
+    default: op
+commands:
+  broadcaster:
+    description: "broadcast, Need permission : sp.broadcast or sp.*"
+    usage: "/<command> <message>"
+    permission: sp.broadcast
+    permission-message: "you don't have permission."
