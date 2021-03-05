@@ -35,21 +35,3 @@ tasks.jar {
         }
     )
 }
-
-/*tasks {
-    compileKotlin {
-        kotlinOptions.jvmTarget = "1.8"
-        kotlinOptions.freeCompilerArgs += "-Xopt-in=kotlin.time.ExperimentalTime,kotlin.ExperimentalStdlibApi"
-    }
-    compileTestKotlin {
-        kotlinOptions.jvmTarget = "1.8"
-        kotlinOptions.freeCompilerArgs += "-Xopt-in=kotlin.time.ExperimentalTime,kotlin.ExperimentalStdlibApi"
-    }
-    shadowJar {
-        classifier = null
-    }
-}
-
-configurations.all {
-    resolutionStrategy.cacheChangingModulesFor(120, "seconds")
-}*/
