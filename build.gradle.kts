@@ -9,17 +9,20 @@ version = "1.0v"
 
 repositories {
     maven("https://papermc.io/repo/repository/maven-public")
-    maven("https://oss.sonatype.org/content/repositories/snapshots/")
     maven("https://jitpack.io")
+    maven("https://oss.sonatype.org/content/repositories/snapshots/")
+    maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
 }
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib")
-    compileOnly("com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT")
-    compileOnly("org.bukkit")
-    compileOnly("org.spigotmc")
     compileOnly(kotlin("stdlib"))
-    val transitive = Action<ExternalModuleDependency> { isTransitive = false }
+    compileOnly("com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT")
+    /*compileOnly("org.spigotmc:spigot:1.16.5-R0.1-SNAPSHOT")
+    compileOnly("org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT")
+    compileOnly("org.bukkit:craftbukkit:1.16.5-R0.1-SNAPSHOT")
+    compileOnly("org.bukkit:bukkit:1.16.5-R0.1-SNAPSHOT")*/
+    Action<ExternalModuleDependency> { isTransitive = false }
 }
 
 val shade = configurations.create("shade")

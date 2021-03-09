@@ -12,9 +12,20 @@ permissions:
   sp.teleport:
     description: teleport world permission
     default: op
+  sp.ts:
+    description: Team Selector
+    default: op
 commands:
   broadcaster:
     description: "broadcast, Need permission : sp.broadcast or sp.*"
     usage: "/<command> <message>"
     permission: sp.broadcast
     permission-message: "you don't have permission."
+  ts:
+    description: "Team Selector"
+    usage: "/<command> <function> <function> [function]"
+    permission: sp.ts
+    permission-message: "you don't have permission."
+  math:
+    description: "Math!! I don't like!"
+    usage: "/<command> <Integer> *,/,-,+,^ <Integer>"

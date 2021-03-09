@@ -9,9 +9,10 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.entity.PlayerDeathEvent
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerQuitEvent
+import un10.un10.logger.loge
 
-class SurvivalListeners : Listener
-{
+
+class SurvivalListeners : Listener{
     fun chatFormat(msg: String): String
     {
         return ChatColor.translateAlternateColorCodes('&', msg)
@@ -24,9 +25,11 @@ class SurvivalListeners : Listener
         val online = Bukkit.getOnlinePlayers().size
 
         ev.joinMessage = chatFormat("&f&l[ &b&lJOIN &f&l] &e${p.name} 님이 서버에 접속하였습니다. &f&l[ &b&l동접자 : &e$online 명 &f&l]")
+        loge.info("&aPlayer Join :\n&aName : ${p.name}\n&aOnlinePlayer : $online")
         if (!p.hasPlayedBefore())
         {
             ev.joinMessage = chatFormat("&f&l[ &b&lJOIN &f&l] &d${p.name} 님이 서버에 처음 접속하였습니다. &f&l[ &b&l동접자 : &e$online 명 &f&l]")
+            loge.info("&dPlayer First Join :\nName : ${p.name}\nOnlinePlayer : $online")
         }
         p.noDamageTicks = 0
     }
@@ -37,6 +40,7 @@ class SurvivalListeners : Listener
         val p = ev.player
         val online = Bukkit.getOnlinePlayers().size - 1
         ev.quitMessage = chatFormat("&f&l[ &c&lQUIT &f&l] &c${p.name} 님이 서버에서 퇴장하였습니다. &f&l[ &b&l동접자 : &e$online 명 &f&l]")
+        loge.info("&cPlayer Left :\n&cName : ${p.name}\n&cOnlinePlayer : $online")
     }
 
     @EventHandler
@@ -59,6 +63,7 @@ class SurvivalListeners : Listener
         val p = ev.entity as Player
         ev.deathMessage = chatFormat("&c사람이 죽었습니다.")
         p.sendMessage(chatFormat("&c당신은 사망하였습니다."))
+        loge.info("&cPlayer Death.\nName : ${p.name}")
     }
 
 }
