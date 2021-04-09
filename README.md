@@ -7,6 +7,7 @@ Minecraft SurvialPlugin
 - 나중에 나의 서버에서 사용 예정.
 - 필요시 사용가능.
 - 코드의 일부분이라도 사용시 라이센스에 따라 코드를 공개해야 하며, 같은 라이센스를 걸어주셔야 합니다.
+- 아직 테스트를 완료한 플러그인이 아닙니다.
 
 # Survival plugin.
 - **Kotlin** A plugin for the server earned as a development language.
