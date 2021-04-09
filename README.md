@@ -26,4 +26,13 @@ Minecraft SurvialPlugin
 - 서버 입, 퇴장 메시지 기능
 - DamageChecker
 - 플레이어 데스메시지 : "사람이 죽었습니다."
-- 명령어 추가 `/math Int 수식 Int`
+- 명령어 추가
+- `/math Int 수식 Int`
+- `/broadcaster <message>`
+- `/gm <gamemode Int>`
+- `/code <code>`
+- `/whisper <player> <message>`
+- `/shutDown <count> <message>`
+- `/setWorld`
+- `/cn <player> <name>`
+- `/sd [player] <display name>`
