@@ -1,35 +1,35 @@
 package un10.un10.Commands
 
 import org.bukkit.Bukkit
-import org.bukkit.ChatColor
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
+import org.bukkit.entity.Player
+import un10.un10.utils.loge
 import java.lang.StringBuilder
 
-class broadcaster : CommandExecutor
-{
-    fun chatFormat(msg: String): String
-    {
-        return ChatColor.translateAlternateColorCodes('&', msg)
-    }
 
+class whisper : CommandExecutor
+{
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean
     {
-        if (args.count() >= 1)
+        val w: Player = Bukkit.getServer().getPlayer(args[0]) as Player
+
+        if (w == Bukkit.getOfflinePlayer(args[0]))
+        {
+            sender.sendMessage(loge.chatFormat("&c오프라인 플레이어는 귓속말을 할 수 없습니다!"))
+        }
+        else
         {
             val str = StringBuilder()
-            for (i in 0 until args.count())
+            for (i in 1 until args.count())
             {
                 str.append(args[i] + " ")
             }
             val msg = str.toString()
-            Bukkit.getServer().broadcastMessage(chatFormat("&e&l[ &c공지 &e&l] &f$msg\n&a&l[ &6발신자 : &e${sender.name} &a&l]"))
+            w.sendMessage("&7${sender.name}로 부터 귓속말이 도착했습니다 : $msg")
         }
-        else
-        {
-            sender.sendMessage("${ChatColor.RED}내용을 적어주세요.")
-        }
+
         return true
     }
 }

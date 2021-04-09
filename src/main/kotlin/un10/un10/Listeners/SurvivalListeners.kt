@@ -9,14 +9,21 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.entity.PlayerDeathEvent
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerQuitEvent
-import un10.un10.logger.loge
+import org.bukkit.plugin.Plugin
+import org.bukkit.plugin.java.JavaPlugin.getPlugin
+import un10.un10.Main
+import un10.un10.utils.loge
+import un10.un10.utils.utils
 
 
-class SurvivalListeners : Listener{
+class SurvivalListeners : Listener
+{
     fun chatFormat(msg: String): String
     {
         return ChatColor.translateAlternateColorCodes('&', msg)
     }
+
+    private val plugin: Plugin = getPlugin(Main::class.java)
 
     @EventHandler
     fun onPlayerJoin(ev: PlayerJoinEvent)
@@ -32,6 +39,16 @@ class SurvivalListeners : Listener{
             loge.info("&dPlayer First Join :\nName : ${p.name}\nOnlinePlayer : $online")
         }
         p.noDamageTicks = 0
+
+        if (utils.getNPCs() == null)
+        {
+            return
+        }
+        if (utils.getNPCs().isEmpty())
+        {
+            return
+        }
+        utils.addNPCJoinPacket(ev.player)
     }
 
     @EventHandler
@@ -64,6 +81,7 @@ class SurvivalListeners : Listener{
         ev.deathMessage = chatFormat("&c사람이 죽었습니다.")
         p.sendMessage(chatFormat("&c당신은 사망하였습니다."))
         loge.info("&cPlayer Death.\nName : ${p.name}")
+        p.world.dropItem(p.location, utils.givePlayerHead(p))
     }
 
 }

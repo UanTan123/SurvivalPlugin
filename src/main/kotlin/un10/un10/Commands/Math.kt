@@ -3,7 +3,7 @@ package un10.un10.Commands
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
-import un10.un10.logger.loge
+import un10.un10.utils.loge
 import kotlin.math.pow
 
 class Math : CommandExecutor
@@ -28,7 +28,7 @@ class Math : CommandExecutor
             }
             "*" ->
             {
-                result = (one * two).toDouble().toInt()
+                result = (one * two).toInt()
                 sender.sendMessage(loge.chatFormat("&a결과 값 : $result"))
             }
             "/" ->

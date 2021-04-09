@@ -1,7 +1,8 @@
 main: un10.un10.Main
 name: Synthesis
-version: 1.0v
+version: ${project.version}
 api-version: 1.16
+author: UN10
 permissions:
   sp.*:
     description: sp plugin all permission.
@@ -15,17 +16,54 @@ permissions:
   sp.ts:
     description: Team Selector
     default: op
+  sp.gm:
+    description: gameMode change permission
+    default: op
+  sp.shutdown:
+    description: shutDown server command
+    default: op
+  sp.createNPC:
+    description: create npc permission
+    default: op
+  sp.setdpname:
+    description: set display name
+    default: op
 commands:
   broadcaster:
     description: "broadcast, Need permission : sp.broadcast or sp.*"
     usage: "/<command> <message>"
     permission: sp.broadcast
     permission-message: "you don't have permission."
-  ts:
-    description: "Team Selector"
-    usage: "/<command> <function> <function> [function]"
-    permission: sp.ts
-    permission-message: "you don't have permission."
   math:
     description: "Math!! I don't like!"
     usage: "/<command> <Integer> *,/,-,+,^ <Integer>"
+  gm:
+    description: "gameMode change command"
+    usage: "/<command> <0 | 1 | 2 | 3> [player]"
+    permission: sp.gm
+    permission-message: "you don't have permission."
+  code:
+    description: "special code."
+    usage: "/<command> <code>"
+  whisper:
+    description: "whisper~ whisper~ you're friend whisper!"
+    aliases: [w, 귓, 귓속말]
+    usage: "/<command> <OnlinePlayer> <message>"
+  shutDown:
+    description: "Shutdown server."
+    permission: sp.shutdown
+    permission-message: "you don't have permission."
+    usage: "/<command> <count> <message>"
+  setWorld:
+    description: "weather, time"
+    usage: "/<command>"
+  cn:
+    description: "create NPC"
+    usage: "/<command> <player> <name>"
+    permission: sp.createNPC
+    permission-message: "you don't have permission."
+  sd:
+    description: "set display name"
+    usage: "/<command> [name] <displayname>"
+    permission: sp.setdpname
+    permission-message: "you don't have permission"

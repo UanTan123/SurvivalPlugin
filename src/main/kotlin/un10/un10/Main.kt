@@ -3,15 +3,15 @@ package un10.un10
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.plugin.java.JavaPlugin
-import un10.un10.Commands.broadcaster
+import un10.un10.Commands.*
 import un10.un10.Listeners.SurvivalListeners
-import un10.un10.Commands.Math
-import java.io.File
+
 
 class Main : JavaPlugin()
 {
     var log = logger
     var config = description
+
 
     override fun onEnable()
     {
@@ -22,8 +22,16 @@ class Main : JavaPlugin()
             log.info(chatFormat("&bPlugin Version: 1.0v"))
             Bukkit.getServer().pluginManager.registerEvents(SurvivalListeners(), this)
             //Bukkit.getServer().pluginManager.registerEvents(anotherListeners(), this)
+            loadConfig()
             getCommand("broadcaster")?.setExecutor(broadcaster())
             getCommand("math")?.setExecutor(Math())
+            getCommand("gm")?.setExecutor(gameModeChange())
+            getCommand("code")?.setExecutor(codeEnter())
+            getCommand("whisper")?.setExecutor(whisper())
+            getCommand("shutDown")?.setExecutor(shutDown())
+            getCommand("setWorld")?.setExecutor(setWorlder())
+            getCommand("cn")?.setExecutor(createNPCs())
+            getCommand("sd")?.setExecutor(changeName())
         }
         catch (e: Exception)
         {
@@ -41,33 +49,10 @@ class Main : JavaPlugin()
         return ChatColor.translateAlternateColorCodes('&', msg)
     }
 
-
-    fun SetConfig()
+    fun loadConfig()
     {
-        val file = File(dataFolder.toString() + File.separator + "config.yml")
-        if (!file.exists())
-        {
-            getConfig().addDefault("Name", "Value")
-
-            getConfig().options().copyDefaults(true)
-            saveConfig()
-        }
-        else
-        {
-            CheckConfig()
-            saveConfig()
-            reloadConfig()
-        }
-    }
-
-    fun CheckConfig()
-    {
-        if(getConfig().get("Name") == null)
-        {
-            getConfig().set("Name", "Value")
-            saveConfig()
-            reloadConfig()
-        }
+        getConfig().options().copyDefaults(true)
+        saveConfig()
     }
 
 }
