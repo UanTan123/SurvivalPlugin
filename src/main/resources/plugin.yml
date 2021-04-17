@@ -7,6 +7,9 @@ permissions:
   sp.*:
     description: sp plugin all permission.
     default: op
+  sp.chatting:
+    description: server chatting permission.
+    default: op
   sp.broadcast:
     description: broadcast permission
     default: op
@@ -27,6 +30,18 @@ permissions:
     default: op
   sp.setdpname:
     description: set display name
+    default: op
+  sp.particle:
+    description: redstone particle
+    default: op
+  sp.turret:
+    description: create turret.
+    default: op
+  sp.wcontrol:
+    description: world controller
+    default: op
+  sp.wteleport:
+    description: world telepoter
     default: op
 commands:
   broadcaster:
@@ -66,4 +81,14 @@ commands:
     description: "set display name"
     usage: "/<command> [name] <displayname>"
     permission: sp.setdpname
-    permission-message: "you don't have permission"
+    permission-message: "you don't have permission."
+  cw:
+    description: "create world"
+    usage: "/<command> <name> <type> [seed]"
+    permission: sp.control
+    permission-message: "you don't have permission."
+  wt:
+    description: "world teleport"
+    usage: "/<command> <name>"
+    permission: sp.wteleport
+    permission-message: "you don't have permission."

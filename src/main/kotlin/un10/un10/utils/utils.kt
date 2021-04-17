@@ -4,14 +4,13 @@ import com.google.gson.JsonParser
 import com.mojang.authlib.GameProfile
 import com.mojang.authlib.properties.Property
 import net.minecraft.server.v1_16_R3.*
-import org.bukkit.Bukkit
-import org.bukkit.ChatColor
+import org.bukkit.*
 import org.bukkit.Material
-import org.bukkit.OfflinePlayer
 import org.bukkit.craftbukkit.v1_16_R3.CraftServer
 import org.bukkit.craftbukkit.v1_16_R3.CraftWorld
 import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer
-import org.bukkit.entity.Player
+import org.bukkit.entity.*
+import org.bukkit.entity.Entity
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.SkullMeta
 import org.bukkit.plugin.Plugin
@@ -22,6 +21,9 @@ import java.lang.Exception
 import java.net.URL
 import java.util.*
 import java.util.ArrayList
+import org.bukkit.inventory.EquipmentSlot
+import org.bukkit.util.Vector
+import org.jetbrains.annotations.NotNull
 
 
 object utils
@@ -124,8 +126,37 @@ object utils
         val skull = item.itemMeta as SkullMeta
         skull.setDisplayName(loge.chatFormat(player.name.toString()))
         skull.lore = listOf("Custom Head")
-        skull.owner = player.toString()
+        skull.owningPlayer = player
         item.itemMeta = skull
         return item
+    }
+
+    fun createTurret(loc: Location, name: String, player: OfflinePlayer)
+    {
+        val armor = loc.world.spawn(loc, ArmorStand::class.java)
+        armor.setGravity(true)
+        armor.isCustomNameVisible = true
+        armor.customName = loge.chatFormat(name)
+        armor.isGlowing = true
+        armor.canPickupItems = false
+        armor.isVisible = true
+        armor.setItem(EquipmentSlot.HEAD, givePlayerHead(player))
+        armor.setItem(EquipmentSlot.CHEST, ItemStack(Material.NETHERITE_CHESTPLATE, 1))
+        armor.setItem(EquipmentSlot.LEGS, ItemStack(Material.IRON_LEGGINGS, 1))
+        armor.setItem(EquipmentSlot.FEET, ItemStack(Material.GOLDEN_BOOTS))
+        armor.setItem(EquipmentSlot.HAND, ItemStack(Material.BOW))
+        armor.setItem(EquipmentSlot.OFF_HAND, ItemStack(Material.DIAMOND_AXE))
+        armor.setBasePlate(false)
+        armor.setArms(true)
+        armor.addScoreboardTag("turret")
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, Runnable
+        {
+            armor.location.direction.multiply(2)
+            for (e in armor.getNearbyEntities(15.0, 15.0, 15.0))
+            {
+                val arrow = armor.location.world.spawn(armor.location, Arrow::class.java)
+                arrow.velocity = arrow.location.direction.subtract(e.location.toVector())
+            }
+        }, 5*20, 1)
     }
 }

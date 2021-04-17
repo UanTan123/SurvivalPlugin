@@ -6,20 +6,17 @@ import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import un10.un10.utils.loge
-import java.lang.StringBuilder
 
-
-class whisper : CommandExecutor
+class WorldTelepoter : CommandExecutor
 {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean
     {
-        val w: Player = Bukkit.getServer().getPlayer(args[0]) as Player
-        val str = StringBuilder()
-        for (i in 1 until args.count())
+        val world = Bukkit.getServer().getWorld(args[0])
+        if (sender is Player)
         {
-            str.append(args[i] + " ")
+            sender.teleport(world!!.spawnLocation)
+            sender.sendMessage(loge.chatFormat("&a성공적으로 월드 이동이 완료되었습니다!"))
         }
-        val msg = str.toString()
 
         return true
     }
