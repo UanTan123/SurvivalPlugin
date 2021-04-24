@@ -10,20 +10,19 @@ import org.bukkit.craftbukkit.v1_16_R3.CraftServer
 import org.bukkit.craftbukkit.v1_16_R3.CraftWorld
 import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer
 import org.bukkit.entity.*
-import org.bukkit.entity.Entity
+import org.bukkit.inventory.EquipmentSlot
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.SkullMeta
 import org.bukkit.plugin.Plugin
 import org.bukkit.plugin.java.JavaPlugin.getPlugin
+import org.bukkit.scheduler.BukkitTask
+import org.jetbrains.annotations.NotNull
 import un10.un10.Main
 import java.io.InputStreamReader
-import java.lang.Exception
+import java.lang.IllegalArgumentException
+import java.lang.reflect.Field
 import java.net.URL
 import java.util.*
-import java.util.ArrayList
-import org.bukkit.inventory.EquipmentSlot
-import org.bukkit.util.Vector
-import org.jetbrains.annotations.NotNull
 
 
 object utils
@@ -120,7 +119,14 @@ object utils
         return NPC
     }
 
-    fun givePlayerHead(player: OfflinePlayer): org.bukkit.inventory.ItemStack
+    fun BanPlayer(player: Player, reason: String, date: Int, source: String)
+    {
+        val unban = Date(System.currentTimeMillis()+date*date*1000)
+        Bukkit.getBanList(BanList.Type.IP).addBan(player.address.hostName, reason, unban, source)
+        loge.info("&a성공적으로 벤 처리가 완료되었습니다.\n&a플레이어 : ${player.name}\n&a사유 : ${reason}\n&a해지 날짜 : ${date}\n&cBy $source")
+    }
+
+    fun givePlayerHead(player: OfflinePlayer): ItemStack
     {
         val item = ItemStack(Material.PLAYER_HEAD, 1, 3)
         val skull = item.itemMeta as SkullMeta
@@ -129,6 +135,30 @@ object utils
         skull.owningPlayer = player
         item.itemMeta = skull
         return item
+    }
+
+    fun createSkull(url: String, name: String): ItemStack
+    {
+        val head = ItemStack(Material.PLAYER_HEAD, 1, 3)
+        if (url.isEmpty()) return head
+
+        val headMeta = head.itemMeta as SkullMeta
+        val profile = GameProfile(UUID.randomUUID(), null)
+
+        profile.properties.put("textures", Property("textures", url))
+
+        try
+        {
+            val profileField: Field = headMeta.javaClass.getDeclaredField("profile")
+            profileField.isAccessible = true
+            profileField.set(headMeta, profile)
+        }
+        catch (e: IllegalArgumentException)
+        {
+            e.printStackTrace()
+        }
+        head.itemMeta = headMeta
+        return head
     }
 
     fun createTurret(loc: Location, name: String, player: OfflinePlayer)
@@ -158,5 +188,14 @@ object utils
                 arrow.velocity = arrow.location.direction.subtract(e.location.toVector())
             }
         }, 5*20, 1)
+    }
+
+    fun delay(timer: Long, runnable: Runnable)
+    {
+        val scheduler = Bukkit.getScheduler()
+        scheduler.runTaskLater(plugin, Runnable
+        {
+            runnable
+        }, timer * 20)
     }
 }

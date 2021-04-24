@@ -31,6 +31,7 @@ class Main : JavaPlugin()
             getCommand("sd")?.setExecutor(changeName())
             getCommand("cw")?.setExecutor(WorldController())
             getCommand("wt")?.setExecutor(WorldTelepoter())
+            getCommand("banGUI")?.setExecutor(BanCommand())
             //getCommand("ct")?.setExecutor(Turret())
         }
         catch (e: Exception)

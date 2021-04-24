@@ -20,6 +20,7 @@ class whisper : CommandExecutor
             str.append(args[i] + " ")
         }
         val msg = str.toString()
+        w.sendMessage(loge.chatFormat(msg))
 
         return true
     }

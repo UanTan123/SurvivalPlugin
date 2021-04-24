@@ -2,13 +2,16 @@ main: un10.un10.Main
 name: Synthesis
 version: ${project.version}
 api-version: 1.16
-author: UN10
+authors: [UN10]
+default-permission: false
+description: Minecraft UXG Survival server plugin.
+website: https://www.youtube.com/channel/UCKqkBId-ffhILwW9O8zVcqw
 permissions:
   sp.*:
-    description: sp plugin all permission.
+    description: sp plugin all permission
     default: op
   sp.chatting:
-    description: server chatting permission.
+    description: server chatting permission
     default: op
   sp.broadcast:
     description: broadcast permission
@@ -35,13 +38,16 @@ permissions:
     description: redstone particle
     default: op
   sp.turret:
-    description: create turret.
+    description: create turret
     default: op
   sp.wcontrol:
     description: world controller
     default: op
   sp.wteleport:
     description: world telepoter
+    default: op
+  sp.ban:
+    description: banning player
     default: op
 commands:
   broadcaster:
@@ -91,4 +97,9 @@ commands:
     description: "world teleport"
     usage: "/<command> <name>"
     permission: sp.wteleport
+    permission-message: "you don't have permission."
+  bangui:
+    description: "ban player."
+    usage: "/<command>"
+    permission: sp.ban
     permission-message: "you don't have permission."

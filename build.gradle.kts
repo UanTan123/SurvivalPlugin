@@ -19,8 +19,8 @@ repositories {
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib")
     compileOnly(kotlin("stdlib"))
-    compileOnly("com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT") //PaperMc
-    compileOnly("org.spigotmc:spigot:1.16.5-R0.1-SNAPSHOT") //Spigot (NMS)
+    compileOnly("com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT")
+    compileOnly("org.spigotmc:spigot:1.16.5-R0.1-SNAPSHOT")
     Action<ExternalModuleDependency> { isTransitive = false }
 }
 
